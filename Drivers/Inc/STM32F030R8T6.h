@@ -72,4 +72,31 @@
 #define EXTI_BASE                 (APBPERIPH_BASE + 0x00010400U)
 #define ADC1_BASE                 (APBPERIPH_BASE + 0x00012400U)
 
+
+/*
+ * Peripheral register definition structure for GPIO (STM32F030R8)
+ */
+typedef struct
+{
+    volatile uint32_t MODER;    /*!< GPIO port mode register,               Address offset: 0x00 */
+    volatile uint32_t OTYPER;   /*!< GPIO port output type register,        Address offset: 0x04 */
+    volatile uint32_t OSPEEDR;  /*!< GPIO port output speed register,       Address offset: 0x08 */
+    volatile uint32_t PUPDR;    /*!< GPIO port pull-up/pull-down register,  Address offset: 0x0C */
+    volatile uint32_t IDR;      /*!< GPIO port input data register,         Address offset: 0x10 */
+    volatile uint32_t ODR;      /*!< GPIO port output data register,        Address offset: 0x14 */
+    volatile uint32_t BSRR;     /*!< GPIO port bit set/reset register,      Address offset: 0x18 */
+    volatile uint32_t LCKR;     /*!< GPIO port configuration lock register, Address offset: 0x1C */
+    volatile uint32_t AFR[2];   /*!< GPIO alternate function registers,     Address offset: 0x20-0x24 (AFR[0]: AFRL, AFR[1]: AFRH) */
+    volatile uint32_t BRR;      /*!< GPIO port bit reset register,          Address offset: 0x28 */
+} GPIO_RegDef_t;
+
+/*
+ * Peripheral definitions (Peripheral base addresses cast to GPIO_RegDef_t*)
+ */
+#define GPIOA    ((GPIO_RegDef_t *)GPIOA_BASE)  // GPIOA
+#define GPIOB    ((GPIO_RegDef_t *)GPIOB_BASE)  // GPIOB
+#define GPIOC    ((GPIO_RegDef_t *)GPIOC_BASE)  //GPIOC
+#define GPIOD    ((GPIO_RegDef_t *)GPIOD_BASE)  //GPIOD
+#define GPIOF    ((GPIO_RegDef_t *)GPIOF_BASE)  //GPIOF
+
 #endif /* INC_STM32F030R8T6_H_
