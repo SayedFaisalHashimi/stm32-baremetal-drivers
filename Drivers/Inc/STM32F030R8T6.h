@@ -6,339 +6,441 @@
  */
 
 #ifndef INC_STM32F030R8T6_H_
-#define INC_STM32F030R8T6_H
+#define INC_STM32F030R8T6_H_
 
 #include <stdint.h>
 
-/*
- * Base addresses of Memory
- */
+/******************************************************************************/
+/*                                                                            */
+/*                          ARM CORTEX-M0 NVIC EXCEPTION NUMBERS              */
+/*                                                                            */
+/******************************************************************************/
+
+typedef enum
+{
+    /* Cortex-M0 Processor Exceptions */
+    NonMaskableInt_IRQn    = -14,
+    HardFault_IRQn         = -13,
+    SVCall_IRQn            = -5,
+    PendSV_IRQn            = -2,
+    SysTick_IRQn           = -1,
+
+    /* STM32F030R8 Specific Interrupt Vectors */
+    WWDG_IRQn              = 0,
+    RTC_IRQn               = 2,
+    FLASH_IRQn             = 3,
+    RCC_IRQn               = 4,
+    EXTI0_1_IRQn           = 5,
+    EXTI2_3_IRQn           = 6,
+    EXTI4_15_IRQn          = 7,
+    DMA1_Channel1_IRQn     = 9,
+    DMA1_Channel2_3_IRQn   = 10,
+    DMA1_Channel4_5_IRQn   = 11,
+    ADC1_IRQn              = 12,
+    TIM1_BRK_UP_TRG_COM_IRQn = 13,
+    TIM1_CC_IRQn           = 14,
+    TIM3_IRQn              = 16,
+    TIM6_IRQn              = 17,
+    TIM7_IRQn              = 18,
+    TIM14_IRQn             = 19,
+    TIM15_IRQn             = 20,
+    TIM16_IRQn             = 21,
+    TIM17_IRQn             = 22,
+    I2C1_IRQn              = 23,
+    I2C2_IRQn              = 24,
+    SPI1_IRQn              = 25,
+    SPI2_IRQn              = 26,
+    USART1_IRQn            = 27,
+    USART2_IRQn            = 28
+} IRQn_Type;
+
+/******************************************************************************/
+/*                                                                            */
+/*                          MEMORY BASE ADDRESSES                             */
+/*                                                                            */
+/******************************************************************************/
+
 #define FLASH_BASEADDR            0x08000000U
 #define SRAM_BASEADDR             0x20000000U
 #define SYSTEM_MEMORY_BASEADDR    0x1FFFEC00U
 
-/*
- * Peripheral Bus Base Addresses
- */
+/******************************************************************************/
+/*                                                                            */
+/*                        PERIPHERAL BUS BASE ADDRESSES                       */
+/*                                                                            */
+/******************************************************************************/
+
 #define PERIPH_BASE               0x40000000U
 #define APBPERIPH_BASE            PERIPH_BASE
 #define AHB1PERIPH_BASE           (PERIPH_BASE + 0x00020000U)
 #define AHB2PERIPH_BASE           (PERIPH_BASE + 0x08000000U)
 
-/*
- * AHB2 Peripherals (GPIO Ports)
- */
+/******************************************************************************/
+/*                                                                            */
+/*                    PERIPHERAL BASE ADDRESS DEFINITIONS                     */
+/*                                                                            */
+/******************************************************************************/
+
+/* AHB2 Peripherals (GPIO Ports) */
 #define GPIOA_BASE                (AHB2PERIPH_BASE + 0x00000000U)
 #define GPIOB_BASE                (AHB2PERIPH_BASE + 0x00000400U)
 #define GPIOC_BASE                (AHB2PERIPH_BASE + 0x00000800U)
 #define GPIOD_BASE                (AHB2PERIPH_BASE + 0x00000C00U)
 #define GPIOF_BASE                (AHB2PERIPH_BASE + 0x00001400U)
 
-/*
- * AHB1 Peripherals
- */
+/* AHB1 Peripherals */
+#define DMA1_BASE                 (AHB1PERIPH_BASE + 0x00000000U)
+#define DMA1_Channel1_BASE        (DMA1_BASE + 0x00000008U)
+#define DMA1_Channel2_BASE        (DMA1_BASE + 0x0000001CU)
+#define DMA1_Channel3_BASE        (DMA1_BASE + 0x00000030U)
+#define DMA1_Channel4_BASE        (DMA1_BASE + 0x00000044U)
+#define DMA1_Channel5_BASE        (DMA1_BASE + 0x00000058U)
 #define RCC_BASE                  (AHB1PERIPH_BASE + 0x00001000U)
+#define FLASH_R_BASE              (AHB1PERIPH_BASE + 0x00002000U)
+#define CRC_BASE                  (AHB1PERIPH_BASE + 0x00003000U)
 
-/*
- * Base addresses of peripherals hanging on APB bus (PERIPH_BASE = 0x40000000U)
- */
-
-/* Timers */
+/* APB Peripherals */
 #define TIM3_BASE                 (APBPERIPH_BASE + 0x00000400U)
 #define TIM6_BASE                 (APBPERIPH_BASE + 0x00001000U)
 #define TIM7_BASE                 (APBPERIPH_BASE + 0x00001400U)
 #define TIM14_BASE                (APBPERIPH_BASE + 0x00002000U)
-#define TIM15_BASE                (APBPERIPH_BASE + 0x00014000U)
-#define TIM16_BASE                (APBPERIPH_BASE + 0x00014400U)
-#define TIM17_BASE                (APBPERIPH_BASE + 0x00014800U)
-#define TIM1_BASE                 (APBPERIPH_BASE + 0x00012C00U)
-
-/* Watchdogs & RTC */
 #define RTC_BASE                  (APBPERIPH_BASE + 0x00002800U)
 #define WWDG_BASE                 (APBPERIPH_BASE + 0x00002C00U)
 #define IWDG_BASE                 (APBPERIPH_BASE + 0x00003000U)
-
-/* Communication Interfaces */
-#define SPI1_BASE                 (APBPERIPH_BASE + 0x00013000U)
 #define SPI2_BASE                 (APBPERIPH_BASE + 0x00003800U)
-#define USART1_BASE               (APBPERIPH_BASE + 0x00013800U)
 #define USART2_BASE               (APBPERIPH_BASE + 0x00004400U)
 #define I2C1_BASE                 (APBPERIPH_BASE + 0x00005400U)
 #define I2C2_BASE                 (APBPERIPH_BASE + 0x00005800U)
-
-/* System & Analog */
 #define PWR_BASE                  (APBPERIPH_BASE + 0x00007000U)
 #define SYSCFG_BASE               (APBPERIPH_BASE + 0x00010000U)
 #define EXTI_BASE                 (APBPERIPH_BASE + 0x00010400U)
 #define ADC1_BASE                 (APBPERIPH_BASE + 0x00012400U)
+#define TIM1_BASE                 (APBPERIPH_BASE + 0x00012C00U)
+#define SPI1_BASE                 (APBPERIPH_BASE + 0x00013000U)
+#define USART1_BASE               (APBPERIPH_BASE + 0x00013800U)
+#define TIM15_BASE                (APBPERIPH_BASE + 0x00014000U)
+#define TIM16_BASE                (APBPERIPH_BASE + 0x00014400U)
+#define TIM17_BASE                (APBPERIPH_BASE + 0x00014800U)
 
+/******************************************************************************/
+/*                                                                            */
+/*                          PERIPHERAL STRUCT DEFINITIONS                     */
+/*                                                                            */
+/******************************************************************************/
 
-/*
- * Peripheral register definition structure for GPIO (STM32F030R8)
- */
 typedef struct
 {
-    volatile uint32_t MODER;    /*!< GPIO port mode register,               Address offset: 0x00 */
-    volatile uint32_t OTYPER;   /*!< GPIO port output type register,        Address offset: 0x04 */
-    volatile uint32_t OSPEEDR;  /*!< GPIO port output speed register,       Address offset: 0x08 */
-    volatile uint32_t PUPDR;    /*!< GPIO port pull-up/pull-down register,  Address offset: 0x0C */
-    volatile uint32_t IDR;      /*!< GPIO port input data register,         Address offset: 0x10 */
-    volatile uint32_t ODR;      /*!< GPIO port output data register,        Address offset: 0x14 */
-    volatile uint32_t BSRR;     /*!< GPIO port bit set/reset register,      Address offset: 0x18 */
-    volatile uint32_t LCKR;     /*!< GPIO port configuration lock register, Address offset: 0x1C */
-    volatile uint32_t AFR[2];   /*!< GPIO alternate function registers,     Address offset: 0x20-0x24 (AFR[0]: AFRL, AFR[1]: AFRH) */
-    volatile uint32_t BRR;      /*!< GPIO port bit reset register,          Address offset: 0x28 */
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFR[2];
+    volatile uint32_t BRR;
 } GPIO_RegDef_t;
 
-/*
- * Peripheral definitions (Peripheral base addresses cast to GPIO_RegDef_t*)
- */
-#define GPIOA    ((GPIO_RegDef_t *)GPIOA_BASE)  // GPIOA
-#define GPIOB    ((GPIO_RegDef_t *)GPIOB_BASE)  // GPIOB
-#define GPIOC    ((GPIO_RegDef_t *)GPIOC_BASE)  //GPIOC
-#define GPIOD    ((GPIO_RegDef_t *)GPIOD_BASE)  //GPIOD
-#define GPIOF    ((GPIO_RegDef_t *)GPIOF_BASE)  //GPIOF
-
-
-
-/******************************************************************************/
-/*                                                                            */
-/*                          AHB2 PERIPHERAL STRUCTS                           */
-/*                                                                            */
-/******************************************************************************/
-
-/**
-
-
-/******************************************************************************/
-/*                                                                            */
-/*                          AHB1 PERIPHERAL STRUCTS                           */
-/*                                                                            */
-/******************************************************************************/
-
-/**
-  * @brief DMA Channel Sub-structure
-  */
 typedef struct
 {
-    volatile uint32_t CCR;      /*!< DMA channel configuration register,    Address offset: 0x00 */
-    volatile uint32_t CNDTR;    /*!< DMA channel number of data register,   Address offset: 0x04 */
-    volatile uint32_t CPAR;     /*!< DMA channel peripheral address reg,    Address offset: 0x08 */
-    volatile uint32_t CMAR;     /*!< DMA channel memory address register,   Address offset: 0x0C */
-    volatile uint32_t RESERVED; /*!< Reserved,                              Address offset: 0x10 */
+    volatile uint32_t CCR;
+    volatile uint32_t CNDTR;
+    volatile uint32_t CPAR;
+    volatile uint32_t CMAR;
+    volatile uint32_t RESERVED;
 } DMA_Channel_RegDef_t;
 
-/**
-  * @brief Direct Memory Access (DMA1)
-  */
 typedef struct
 {
-    volatile uint32_t ISR;           /*!< DMA interrupt status register,      Address offset: 0x00 */
-    volatile uint32_t IFCR;          /*!< DMA interrupt flag clear register,  Address offset: 0x04 */
-    DMA_Channel_RegDef_t Channel[5]; /*!< DMA channels 1 to 5,                  Address offset: 0x08 - 0x6B */
+    volatile uint32_t ISR;
+    volatile uint32_t IFCR;
+    DMA_Channel_RegDef_t Channel[5];
 } DMA_RegDef_t;
 
-/**
-  * @brief Reset and Clock Control (RCC)
-  */
 typedef struct
 {
-    volatile uint32_t CR;       /*!< Clock control register,                Address offset: 0x00 */
-    volatile uint32_t CFGR;     /*!< Clock configuration register,          Address offset: 0x04 */
-    volatile uint32_t CIR;      /*!< Clock interrupt register,              Address offset: 0x08 */
-    volatile uint32_t APB2RSTR; /*!< APB peripheral reset register 2,       Address offset: 0x0C */
-    volatile uint32_t APB1RSTR; /*!< APB peripheral reset register 1,       Address offset: 0x10 */
-    volatile uint32_t AHBENR;   /*!< AHB peripheral clock enable register,  Address offset: 0x14 */
-    volatile uint32_t APB2ENR;  /*!< APB peripheral clock enable reg 2,     Address offset: 0x18 */
-    volatile uint32_t APB1ENR;  /*!< APB peripheral clock enable reg 1,     Address offset: 0x1C */
-    volatile uint32_t BDCR;     /*!< Backup domain control register,        Address offset: 0x20 */
-    volatile uint32_t CSR;      /*!< Control/status register,               Address offset: 0x24 */
-    volatile uint32_t AHBRSTR;  /*!< AHB peripheral reset register,         Address offset: 0x28 */
-    volatile uint32_t CFGR2;    /*!< Clock configuration register 2,        Address offset: 0x2C */
+    volatile uint32_t CR;
+    volatile uint32_t CFGR;
+    volatile uint32_t CIR;
+    volatile uint32_t APB2RSTR;
+    volatile uint32_t APB1RSTR;
+    volatile uint32_t AHBENR;
+    volatile uint32_t APB2ENR;
+    volatile uint32_t APB1ENR;
+    volatile uint32_t BDCR;
+    volatile uint32_t CSR;
+    volatile uint32_t AHBRSTR;
+    volatile uint32_t CFGR2;
 } RCC_RegDef_t;
 
-/**
-  * @brief Flash Interface Control
-  */
 typedef struct
 {
-    volatile uint32_t ACR;      /*!< Flash access control register,         Address offset: 0x00 */
-    volatile uint32_t KEYR;     /*!< Flash key register,                    Address offset: 0x04 */
-    volatile uint32_t OPTKEYR;  /*!< Flash option key register,             Address offset: 0x08 */
-    volatile uint32_t SR;       /*!< Flash status register,                 Address offset: 0x0C */
-    volatile uint32_t CR;       /*!< Flash control register,                Address offset: 0x10 */
-    volatile uint32_t AR;       /*!< Flash address register,                Address offset: 0x14 */
-    volatile uint32_t RESERVED; /*!< Reserved,                              Address offset: 0x18 */
-    volatile uint32_t OBR;      /*!< Option byte register,                  Address offset: 0x1C */
-    volatile uint32_t WRPR;     /*!< Write protection register,             Address offset: 0x20 */
+    volatile uint32_t ACR;
+    volatile uint32_t KEYR;
+    volatile uint32_t OPTKEYR;
+    volatile uint32_t SR;
+    volatile uint32_t CR;
+    volatile uint32_t AR;
+    volatile uint32_t RESERVED;
+    volatile uint32_t OBR;
+    volatile uint32_t WRPR;
 } FLASH_RegDef_t;
 
-/**
-  * @brief Cyclic Redundancy Check (CRC)
-  */
 typedef struct
 {
-    volatile uint32_t DR;       /*!< CRC Data register,                     Address offset: 0x00 */
-    volatile uint32_t IDR;      /*!< CRC Independent data register,         Address offset: 0x04 */
-    volatile uint32_t CR;       /*!< CRC Control register,                  Address offset: 0x08 */
-    volatile uint32_t RESERVED; /*!< Reserved,                              Address offset: 0x0C */
-    volatile uint32_t INIT;     /*!< CRC Initial value register,            Address offset: 0x10 */
-    volatile uint32_t POL;      /*!< CRC Polynomial register,               Address offset: 0x14 */
+    volatile uint32_t DR;
+    volatile uint32_t IDR;
+    volatile uint32_t CR;
+    volatile uint32_t RESERVED;
+    volatile uint32_t INIT;
+    volatile uint32_t POL;
 } CRC_RegDef_t;
 
-
-/******************************************************************************/
-/*                                                                            */
-/*                          APB PERIPHERAL STRUCTS                            */
-/*                                                                            */
-/******************************************************************************/
-
-/**
-  * @brief Universal Synchronous Asynchronous Receiver Transmitter (USART)
-  */
 typedef struct
 {
-    volatile uint32_t CR1;      /*!< USART Control register 1,              Address offset: 0x00 */
-    volatile uint32_t CR2;      /*!< USART Control register 2,              Address offset: 0x04 */
-    volatile uint32_t CR3;      /*!< USART Control register 3,              Address offset: 0x08 */
-    volatile uint32_t BRR;      /*!< USART Baud rate register,              Address offset: 0x0C */
-    volatile uint32_t GTPR;     /*!< USART Guard time and prescaler reg,    Address offset: 0x10 */
-    volatile uint32_t RTOR;     /*!< USART Receiver timeout register,       Address offset: 0x14 */
-    volatile uint32_t RQR;      /*!< USART Request register,                Address offset: 0x18 */
-    volatile uint32_t ISR;      /*!< USART Interrupt & status register,     Address offset: 0x1C */
-    volatile uint32_t ICR;      /*!< USART Interrupt flag clear register,   Address offset: 0x20 */
-    volatile uint32_t RDR;      /*!< USART Receive data register,           Address offset: 0x24 */
-    volatile uint32_t TDR;      /*!< USART Transmit data register,          Address offset: 0x28 */
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t BRR;
+    volatile uint32_t GTPR;
+    volatile uint32_t RTOR;
+    volatile uint32_t RQR;
+    volatile uint32_t ISR;
+    volatile uint32_t ICR;
+    volatile uint32_t RDR;
+    volatile uint32_t TDR;
 } USART_RegDef_t;
 
-/**
-  * @brief Serial Peripheral Interface (SPI)
-  */
 typedef struct
 {
-    volatile uint32_t CR1;      /*!< SPI Control register 1,                Address offset: 0x00 */
-    volatile uint32_t CR2;      /*!< SPI Control register 2,                Address offset: 0x04 */
-    volatile uint32_t SR;       /*!< SPI Status register,                   Address offset: 0x08 */
-    volatile uint32_t DR;       /*!< SPI Data register,                     Address offset: 0x0C */
-    volatile uint32_t CRCPR;    /*!< SPI CRC polynomial register,           Address offset: 0x10 */
-    volatile uint32_t RXCRCR;   /*!< SPI Rx CRC register,                   Address offset: 0x14 */
-    volatile uint32_t TXCRCR;   /*!< SPI Tx CRC register,                   Address offset: 0x18 */
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t SR;
+    volatile uint32_t DR;
+    volatile uint32_t CRCPR;
+    volatile uint32_t RXCRCR;
+    volatile uint32_t TXCRCR;
 } SPI_RegDef_t;
 
-/**
-  * @brief Inter-Integrated Circuit (I2C)
-  */
 typedef struct
 {
-    volatile uint32_t CR1;      /*!< I2C Control register 1,                Address offset: 0x00 */
-    volatile uint32_t CR2;      /*!< I2C Control register 2,                Address offset: 0x04 */
-    volatile uint32_t OAR1;     /*!< I2C Own address 1 register,            Address offset: 0x08 */
-    volatile uint32_t OAR2;     /*!< I2C Own address 2 register,            Address offset: 0x0C */
-    volatile uint32_t TIMINGR;  /*!< I2C Timing register,                   Address offset: 0x10 */
-    volatile uint32_t TIMEOUTR; /*!< I2C Timeout register,                  Address offset: 0x14 */
-    volatile uint32_t ISR;      /*!< I2C Interrupt and status register,     Address offset: 0x18 */
-    volatile uint32_t ICR;      /*!< I2C Interrupt clear register,          Address offset: 0x1C */
-    volatile uint32_t PECR;     /*!< I2C PEC register,                      Address offset: 0x20 */
-    volatile uint32_t RXDR;     /*!< I2C Receive data register,             Address offset: 0x24 */
-    volatile uint32_t TXDR;     /*!< I2C Transmit data register,            Address offset: 0x28 */
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t OAR1;
+    volatile uint32_t OAR2;
+    volatile uint32_t TIMINGR;
+    volatile uint32_t TIMEOUTR;
+    volatile uint32_t ISR;
+    volatile uint32_t ICR;
+    volatile uint32_t PECR;
+    volatile uint32_t RXDR;
+    volatile uint32_t TXDR;
 } I2C_RegDef_t;
 
-/**
-  * @brief Timers (TIM1 Advanced, TIM3, TIM14, TIM15, TIM16, TIM17)
-  */
 typedef struct
 {
-    volatile uint32_t CR1;      /*!< TIM control register 1,                Address offset: 0x00 */
-    volatile uint32_t CR2;      /*!< TIM control register 2,                Address offset: 0x04 */
-    volatile uint32_t SMCR;     /*!< TIM slave mode control register,       Address offset: 0x08 */
-    volatile uint32_t DIER;     /*!< TIM DMA/interrupt enable register,     Address offset: 0x0C */
-    volatile uint32_t SR;       /*!< TIM status register,                   Address offset: 0x10 */
-    volatile uint32_t EGR;      /*!< TIM event generation register,         Address offset: 0x14 */
-    volatile uint32_t CCMR1;    /*!< TIM capture/compare mode register 1,   Address offset: 0x18 */
-    volatile uint32_t CCMR2;    /*!< TIM capture/compare mode register 2,   Address offset: 0x1C */
-    volatile uint32_t CCER;     /*!< TIM capture/compare enable register,   Address offset: 0x20 */
-    volatile uint32_t CNT;      /*!< TIM counter register,                  Address offset: 0x24 */
-    volatile uint32_t PSC;      /*!< TIM prescaler,                         Address offset: 0x28 */
-    volatile uint32_t ARR;      /*!< TIM auto-reload register,              Address offset: 0x2C */
-    volatile uint32_t RCR;      /*!< TIM repetition counter register,       Address offset: 0x30 */
-    volatile uint32_t CCR[4];   /*!< TIM capture/compare registers 1-4,     Address offset: 0x34-0x40 */
-    volatile uint32_t BDTR;     /*!< TIM break and dead-time register,      Address offset: 0x44 */
-    volatile uint32_t DCR;      /*!< TIM DMA control register,              Address offset: 0x48 */
-    volatile uint32_t DMAR;     /*!< TIM DMA address for full transfer,     Address offset: 0x4C */
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t SMCR;
+    volatile uint32_t DIER;
+    volatile uint32_t SR;
+    volatile uint32_t EGR;
+    volatile uint32_t CCMR1;
+    volatile uint32_t CCMR2;
+    volatile uint32_t CCER;
+    volatile uint32_t CNT;
+    volatile uint32_t PSC;
+    volatile uint32_t ARR;
+    volatile uint32_t RCR;
+    volatile uint32_t CCR[4];
+    volatile uint32_t BDTR;
+    volatile uint32_t DCR;
+    volatile uint32_t DMAR;
 } TIM_RegDef_t;
 
-/**
-  * @brief External Interrupt/Event Controller (EXTI)
-  */
 typedef struct
 {
-    volatile uint32_t IMR;      /*!< Interrupt mask register,               Address offset: 0x00 */
-    volatile uint32_t EMR;      /*!< Event mask register,                   Address offset: 0x04 */
-    volatile uint32_t RTSR;     /*!< Rising trigger selection register,     Address offset: 0x08 */
-    volatile uint32_t FTSR;     /*!< Falling trigger selection register,    Address offset: 0x0C */
-    volatile uint32_t SWIER;    /*!< Software interrupt event register,     Address offset: 0x10 */
-    volatile uint32_t PR;       /*!< Pending register,                      Address offset: 0x14 */
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t RESERVED;
+    volatile uint32_t DIER;
+    volatile uint32_t SR;
+    volatile uint32_t EGR;
+    volatile uint32_t RESERVED2[3];
+    volatile uint32_t CNT;
+    volatile uint32_t PSC;
+    volatile uint32_t ARR;
+} TIM_Basic_RegDef_t;
+
+typedef struct
+{
+    volatile uint32_t IMR;
+    volatile uint32_t EMR;
+    volatile uint32_t RTSR;
+    volatile uint32_t FTSR;
+    volatile uint32_t SWIER;
+    volatile uint32_t PR;
 } EXTI_RegDef_t;
 
-/**
-  * @brief System Configuration Controller (SYSCFG)
-  */
 typedef struct
 {
-    volatile uint32_t CFGR1;    /*!< SYSCFG configuration register 1,       Address offset: 0x00 */
-    volatile uint32_t RESERVED; /*!< Reserved,                              Address offset: 0x04 */
-    volatile uint32_t EXTICR[4];/*!< SYSCFG external interrupt config regs, Address offset: 0x08-0x14 */
-    volatile uint32_t CFGR2;    /*!< SYSCFG configuration register 2,       Address offset: 0x18 */
+    volatile uint32_t CFGR1;
+    volatile uint32_t RESERVED;
+    volatile uint32_t EXTICR[4];
+    volatile uint32_t CFGR2;
 } SYSCFG_RegDef_t;
 
-/**
-  * @brief Analog-to-Digital Converter (ADC1)
-  */
 typedef struct
 {
-    volatile uint32_t ISR;      /*!< ADC interrupt and status register,     Address offset: 0x00 */
-    volatile uint32_t IER;      /*!< ADC interrupt enable register,         Address offset: 0x04 */
-    volatile uint32_t CR;       /*!< ADC control register,                  Address offset: 0x08 */
-    volatile uint32_t CFGR1;    /*!< ADC configuration register 1,          Address offset: 0x0C */
-    volatile uint32_t CFGR2;    /*!< ADC configuration register 2,          Address offset: 0x10 */
-    volatile uint32_t SMPR;     /*!< ADC sampling time register,            Address offset: 0x14 */
-    volatile uint32_t RESERVED1[2]; /*!< Reserved,                          Address offset: 0x18-0x1C */
-    volatile uint32_t TR;       /*!< ADC watchdog threshold register,       Address offset: 0x20 */
-    volatile uint32_t RESERVED2;/*!< Reserved,                              Address offset: 0x24 */
-    volatile uint32_t CHSELR;   /*!< ADC channel selection register,        Address offset: 0x28 */
-    volatile uint32_t RESERVED3[5]; /*!< Reserved,                          Address offset: 0x2C-0x3C */
-    volatile uint32_t DR;       /*!< ADC data register,                     Address offset: 0x40 */
+    volatile uint32_t ISR;
+    volatile uint32_t IER;
+    volatile uint32_t CR;
+    volatile uint32_t CFGR1;
+    volatile uint32_t CFGR2;
+    volatile uint32_t SMPR;
+    volatile uint32_t RESERVED1[2];
+    volatile uint32_t TR;
+    volatile uint32_t RESERVED2;
+    volatile uint32_t CHSELR;
+    volatile uint32_t RESERVED3[5];
+    volatile uint32_t DR;
 } ADC_RegDef_t;
 
-/**
-  * @brief Power Control (PWR)
-  */
 typedef struct
 {
-    volatile uint32_t CR;       /*!< Power control register,                Address offset: 0x00 */
-    volatile uint32_t CSR;      /*!< Power control/status register,         Address offset: 0x04 */
+    volatile uint32_t CR;
+    volatile uint32_t CSR;
 } PWR_RegDef_t;
 
-/**
-  * @brief Independent Watchdog (IWDG)
-  */
 typedef struct
 {
-    volatile uint32_t KR;       /*!< Key register,                          Address offset: 0x00 */
-    volatile uint32_t PR;       /*!< Prescaler register,                    Address offset: 0x04 */
-    volatile uint32_t RLR;      /*!< Reload register,                       Address offset: 0x08 */
-    volatile uint32_t SR;       /*!< Status register,                       Address offset: 0x0C */
-    volatile uint32_t WINR;     /*!< Window register,                       Address offset: 0x10 */
+    volatile uint32_t KR;
+    volatile uint32_t PR;
+    volatile uint32_t RLR;
+    volatile uint32_t SR;
+    volatile uint32_t WINR;
 } IWDG_RegDef_t;
 
-/**
-  * @brief Window Watchdog (WWDG)
-  */
 typedef struct
 {
-    volatile uint32_t CR;       /*!< Control register,                      Address offset: 0x00 */
-    volatile uint32_t CFR;      /*!< Configuration register,                Address offset: 0x04 */
-    volatile uint32_t SR;       /*!< Status register,                       Address offset: 0x0C */
+    volatile uint32_t CR;
+    volatile uint32_t CFR;
+    volatile uint32_t SR;
 } WWDG_RegDef_t;
 
-#endif /* INC_STM32F030R8T6_H_
+/******************************************************************************/
+/*                                                                            */
+/*                            PERIPHERAL INSTANCES                            */
+/*                                                                            */
+/******************************************************************************/
+
+#define GPIOA                     ((GPIO_RegDef_t *)GPIOA_BASE)
+#define GPIOB                     ((GPIO_RegDef_t *)GPIOB_BASE)
+#define GPIOC                     ((GPIO_RegDef_t *)GPIOC_BASE)
+#define GPIOD                     ((GPIO_RegDef_t *)GPIOD_BASE)
+#define GPIOF                     ((GPIO_RegDef_t *)GPIOF_BASE)
+
+#define RCC                       ((RCC_RegDef_t *)RCC_BASE)
+#define FLASH                     ((FLASH_RegDef_t *)FLASH_R_BASE)
+#define CRC                       ((CRC_RegDef_t *)CRC_BASE)
+
+#define DMA1                      ((DMA_RegDef_t *)DMA1_BASE)
+#define DMA1_Channel1             ((DMA_Channel_RegDef_t *)DMA1_Channel1_BASE)
+#define DMA1_Channel2             ((DMA_Channel_RegDef_t *)DMA1_Channel2_BASE)
+#define DMA1_Channel3             ((DMA_Channel_RegDef_t *)DMA1_Channel3_BASE)
+#define DMA1_Channel4             ((DMA_Channel_RegDef_t *)DMA1_Channel4_BASE)
+#define DMA1_Channel5             ((DMA_Channel_RegDef_t *)DMA1_Channel5_BASE)
+
+#define USART1                    ((USART_RegDef_t *)USART1_BASE)
+#define USART2                    ((USART_RegDef_t *)USART2_BASE)
+#define SPI1                      ((SPI_RegDef_t *)SPI1_BASE)
+#define SPI2                      ((SPI_RegDef_t *)SPI2_BASE)
+#define I2C1                      ((I2C_RegDef_t *)I2C1_BASE)
+#define I2C2                      ((I2C_RegDef_t *)I2C2_BASE)
+
+#define TIM1                      ((TIM_RegDef_t *)TIM1_BASE)
+#define TIM3                      ((TIM_RegDef_t *)TIM3_BASE)
+#define TIM6                      ((TIM_Basic_RegDef_t *)TIM6_BASE)
+#define TIM7                      ((TIM_Basic_RegDef_t *)TIM7_BASE)
+#define TIM14                     ((TIM_RegDef_t *)TIM14_BASE)
+#define TIM15                     ((TIM_RegDef_t *)TIM15_BASE)
+#define TIM16                     ((TIM_RegDef_t *)TIM16_BASE)
+#define TIM17                     ((TIM_RegDef_t *)TIM17_BASE)
+
+#define EXTI                      ((EXTI_RegDef_t *)EXTI_BASE)
+#define SYSCFG                    ((SYSCFG_RegDef_t *)SYSCFG_BASE)
+#define ADC1                      ((ADC_RegDef_t *)ADC1_BASE)
+#define PWR                       ((PWR_RegDef_t *)PWR_BASE)
+#define IWDG                      ((IWDG_RegDef_t *)IWDG_BASE)
+#define WWDG                      ((WWDG_RegDef_t *)WWDG_BASE)
+
+/******************************************************************************/
+/*                                                                            */
+/*                          CLOCK ENABLE/DISABLE MACROS                       */
+/*                                                                            */
+/******************************************************************************/
+
+/* GPIO Clock Enable/Disable */
+#define GPIOA_PCLK_EN()           (RCC->AHBENR |= (1U << 17))
+#define GPIOB_PCLK_EN()           (RCC->AHBENR |= (1U << 18))
+#define GPIOC_PCLK_EN()           (RCC->AHBENR |= (1U << 19))
+#define GPIOD_PCLK_EN()           (RCC->AHBENR |= (1U << 20))
+#define GPIOF_PCLK_EN()           (RCC->AHBENR |= (1U << 22))
+
+#define GPIOA_PCLK_DIS()          (RCC->AHBENR &= ~(1U << 17))
+#define GPIOB_PCLK_DIS()          (RCC->AHBENR &= ~(1U << 18))
+#define GPIOC_PCLK_DIS()          (RCC->AHBENR &= ~(1U << 19))
+#define GPIOD_PCLK_DIS()          (RCC->AHBENR &= ~(1U << 20))
+#define GPIOF_PCLK_DIS()          (RCC->AHBENR &= ~(1U << 22))
+
+/* I2C Clock Enable/Disable */
+#define I2C1_PCLK_EN()            (RCC->APB1ENR |= (1U << 21))
+#define I2C2_PCLK_EN()            (RCC->APB1ENR |= (1U << 22))
+#define I2C1_PCLK_DIS()           (RCC->APB1ENR &= ~(1U << 21))
+#define I2C2_PCLK_DIS()           (RCC->APB1ENR &= ~(1U << 22))
+
+/* SPI Clock Enable/Disable */
+#define SPI1_PCLK_EN()            (RCC->APB2ENR |= (1U << 12))
+#define SPI2_PCLK_EN()            (RCC->APB1ENR |= (1U << 14))
+#define SPI1_PCLK_DIS()           (RCC->APB2ENR &= ~(1U << 12))
+#define SPI2_PCLK_DIS()           (RCC->APB1ENR &= ~(1U << 14))
+
+/* USART Clock Enable/Disable */
+#define USART1_PCLK_EN()          (RCC->APB2ENR |= (1U << 14))
+#define USART2_PCLK_EN()          (RCC->APB1ENR |= (1U << 17))
+#define USART1_PCLK_DIS()         (RCC->APB2ENR &= ~(1U << 14))
+#define USART2_PCLK_DIS()         (RCC->APB1ENR &= ~(1U << 17))
+
+/* SYSCFG Clock Enable/Disable */
+#define SYSCFG_PCLK_EN()          (RCC->APB2ENR |= (1U << 0))
+#define SYSCFG_PCLK_DIS()         (RCC->APB2ENR &= ~(1U << 0))
+
+/******************************************************************************/
+/*                                                                            */
+/*                        PERIPHERAL RESET MACROS                             */
+/*                                                                            */
+/******************************************************************************/
+
+#define GPIOA_REG_RESET()         do { (RCC->AHBRSTR |= (1U << 17)); (RCC->AHBRSTR &= ~(1U << 17)); } while(0)
+#define GPIOB_REG_RESET()         do { (RCC->AHBRSTR |= (1U << 18)); (RCC->AHBRSTR &= ~(1U << 18)); } while(0)
+#define GPIOC_REG_RESET()         do { (RCC->AHBRSTR |= (1U << 19)); (RCC->AHBRSTR &= ~(1U << 19)); } while(0)
+#define GPIOD_REG_RESET()         do { (RCC->AHBRSTR |= (1U << 20)); (RCC->AHBRSTR &= ~(1U << 20)); } while(0)
+#define GPIOF_REG_RESET()         do { (RCC->AHBRSTR |= (1U << 22)); (RCC->AHBRSTR &= ~(1U << 22)); } while(0)
+
+/******************************************************************************/
+/*                                                                            */
+/*                             GENERIC MACROS                                 */
+/*                                                                            */
+/******************************************************************************/
+
+#define ENABLE                    1
+#define DISABLE                   0
+#define SET                       ENABLE
+#define RESET                     DISABLE
+#define GPIO_PIN_SET              SET
+#define GPIO_PIN_RESET            RESET
+#define FLAG_SET                  SET
+#define FLAG_RESET                RESET
+
+#endif /* INC_STM32F030R8T6_H_ */
