@@ -128,4 +128,20 @@ typedef struct
 
 } USARTx_RegDef_t;
 
+
+
+/*----------------------------- SPI -----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CR1;         /* 0x00 */
+    volatile uint32_t CR2;         /* 0x04 */
+    volatile uint32_t SR;          /* 0x08 */
+    volatile uint32_t DR;          /* 0x0C */
+    volatile uint32_t CRCPR;       /* 0x10 */
+    volatile uint32_t RXCRCR;      /* 0x14 */
+    volatile uint32_t TXCRCR;      /* 0x18 */
+} SPIx_RegDef_t;
+
+#endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
