@@ -266,5 +266,30 @@ typedef struct
 } SYSCFG_RegDef_t;
 
 
+/*----------------------------- RTC -----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t TR;           /* 0x00 - Time register */
+    volatile uint32_t DR;           /* 0x04 - Date register */
+    volatile uint32_t CR;           /* 0x08 - Control register */
+    volatile uint32_t ISR;          /* 0x0C - Initialization and status register */
+    volatile uint32_t PRER;         /* 0x10 - Prescaler register */
+    volatile uint32_t WUTR;         /* 0x14 - Wakeup timer register */
+    volatile uint32_t RESERVED1;    /* 0x18 - Reserved */
+    volatile uint32_t ALRMAR;       /* 0x1C - Alarm A register */
+    volatile uint32_t RESERVED2;    /* 0x20 - Reserved */
+    volatile uint32_t WPR;          /* 0x24 - Write protection register */
+    volatile uint32_t SSR;          /* 0x28 - Sub second register */
+    volatile uint32_t SHIFTR;       /* 0x2C - Shift control register */
+    volatile uint32_t TSTR;         /* 0x30 - Time stamp time register */
+    volatile uint32_t TSDR;         /* 0x34 - Time stamp date register */
+    volatile uint32_t TSSSR;        /* 0x38 - Time stamp sub second register */
+    volatile uint32_t CALR;         /* 0x3C - Calibration register */
+    volatile uint32_t TAFCR;        /* 0x40 - Tamper and alternate function config */
+    volatile uint32_t ALRMASSR;     /* 0x44 - Alarm A sub second register */
+} RTC_RegDef_t;
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
