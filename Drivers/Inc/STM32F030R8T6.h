@@ -81,13 +81,32 @@ typedef struct
 } GPIOx_RegDef_t;
 
 
+/*----------------------------- RCC -----------------------------------------*/
 
+typedef struct
+{
+    volatile uint32_t CR;          /* 0x00 */
+    volatile uint32_t CFGR;        /* 0x04 */
+    volatile uint32_t CIR;         /* 0x08 */
 
+    volatile uint32_t APB2RSTR;    /* 0x0C */
+    volatile uint32_t APB1RSTR;    /* 0x10 */
 
+    volatile uint32_t AHBENR;      /* 0x14 */
 
+    volatile uint32_t APB2ENR;     /* 0x18 */
+    volatile uint32_t APB1ENR;     /* 0x1C */
 
+    volatile uint32_t BDCR;        /* 0x20 */
+    volatile uint32_t CSR;         /* 0x24 */
 
+    volatile uint32_t AHBRSTR;     /* 0x28 */
 
+    volatile uint32_t CFGR2;       /* 0x2C */
+    volatile uint32_t CFGR3;       /* 0x30 */
+    volatile uint32_t CR2;         /* 0x34 */
+
+} RCCx_RegDef_t;
 
 
 #endif /* INC_STM32F030R8T6_H_ */
