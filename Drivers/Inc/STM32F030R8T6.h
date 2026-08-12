@@ -603,5 +603,15 @@ typedef struct
 
 
 
+// CLOCKS FOR GPIOx
+
+#define GPIOA_CLK_EN         RCC->AHBENR |= (1<<17) ;
+#define GPIOB_CLK_EN         RCC->AHBENR |= (1<<18) ;
+#define GPIOC_CLK_EN         RCC->AHBENR |= (1<<19) ;
+#define GPIOD_CLK_EN         RCC->AHBENR |= (1<<20) ;
+#define GPIOF_CLK_EN         RCC->AHBENR |= (1<<22) ;
+
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 
