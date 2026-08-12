@@ -29,6 +29,7 @@
 #define   TIM6_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00001000UL)
 #define   TIM7_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00001400UL)
 #define   TIM14_BASE                       (APBPERIPHERAL_BASE_ADDR + 0x00002000UL)
+
 #define   RTC_BASE                         (APBPERIPHERAL_BASE_ADDR + 0x00002800UL)
 #define   WWDG_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00002C00UL)
 #define   IWDG_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00003000UL)
@@ -44,13 +45,15 @@
 #define   PWR_BASE                         (APBPERIPHERAL_BASE_ADDR + 0x00007000UL)
 #define   SYSCFG_BASE                      (APBPERIPHERAL_BASE_ADDR + 0x00010000UL)
 #define   EXTI_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00010400UL)
-#define   USART6                           (APBPERIPHERAL_BASE_ADDR + 0x00011400UL)
+#define   USART6_BASE                      (APBPERIPHERAL_BASE_ADDR + 0x00011400UL)
 #define   ADC_BASE                         (APBPERIPHERAL_BASE_ADDR + 0x00012400UL)
 #define   TIM1_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00012C00UL)
 #define   SPI1_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00013000UL)
 #define   USART1_BASE                      (APBPERIPHERAL_BASE_ADDR + 0x00013800UL)
 #define   TIM15_BASE                       (APBPERIPHERAL_BASE_ADDR + 0x00014000UL)
-#define DBGMCU_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00015800UL)
+#define   TIM16_BASE                         (APBPERIPHERAL_BASE_ADDR + 0x00014400UL)  //recheck
+#define   TIM17_BASE                         (APBPERIPHERAL_BASE_ADDR + 0x00014800UL)  //recheck
+#define   DBGMCU_BASE                        (APBPERIPHERAL_BASE_ADDR + 0x00015800UL)
 
 //AHB1 PERIPHERAL
 #define   DMA_BASE                          AHB1PERIPHERAL_BASE_ADDR
@@ -521,4 +524,4 @@ typedef struct
 
 
 #endif /* INC_STM32F030R8T6_H_ */
-#endif /* INC_STM32F030R8T6_H_ */
+
