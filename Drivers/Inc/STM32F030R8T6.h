@@ -239,7 +239,20 @@ typedef struct
 } DMA_RegDef_t;
 
 
+/*----------------------------- FLASH ---------------------------------------*/
 
+typedef struct
+{
+    volatile uint32_t ACR;         /* 0x00 */
+    volatile uint32_t KEYR;        /* 0x04 */
+    volatile uint32_t OPTKEYR;     /* 0x08 */
+    volatile uint32_t SR;          /* 0x0C */
+    volatile uint32_t CR;          /* 0x10 */
+    volatile uint32_t AR;          /* 0x14 */
+    volatile uint32_t RESERVED;    /* 0x18 */
+    volatile uint32_t OBR;         /* 0x1C */
+    volatile uint32_t WRPR;        /* 0x20 */
+} FLASH_RegDef_t;
 
 
 #endif /* INC_STM32F030R8T6_H_ */
