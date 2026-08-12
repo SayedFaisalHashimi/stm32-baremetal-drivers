@@ -208,38 +208,48 @@ typedef struct
 /*                              DMA CHANNEL                                  */
 /*===========================================================================*/
 
-typedef struct
-{
-    volatile uint32_t CCR;       /* 0x00 - DMA channel configuration register */
-    volatile uint32_t CNDTR;     /* 0x04 - Number of data to transfer         */
-    volatile uint32_t CPAR;      /* 0x08 - Peripheral address                */
-    volatile uint32_t CMAR;      /* 0x0C - Memory address                    */
-    volatile uint32_t RESERVED;  /* 0x10 - Reserved                          */
+typedef struct {
+    volatile uint32_t ISR;       /* 0x00 */   /* Interrupt status register      */
+    volatile uint32_t IFCR;       /* 0x04 */   /* Interrupt flag clear register  */
 
-} DMA_Channel_RegDef_t;
+    /* Channel 1 */
+    volatile uint32_t CCR1;         /* Channel 1 configuration        */
+    volatile uint32_t CNDTR1;       /* Channel 1 number of data       */
+    volatile uint32_t CPAR1;        /* Channel 1 peripheral address   */
+    volatile uint32_t CMAR1;        /* Channel 1 memory address       */
+    volatile uint32_t RESERVED1;    /* Reserved                      */
 
+    /* Channel 2 */
+    volatile uint32_t CCR2;         /* Channel 2 configuration        */
+    volatile uint32_t CNDTR2;       /* Channel 2 number of data       */
+    volatile uint32_t CPAR2;        /* Channel 2 peripheral address   */
+    volatile uint32_t CMAR2;        /* Channel 2 memory address       */
+    /* 0x2C */ volatile uint32_t RESERVED2;    /* Reserved                      */
 
+    /* Channel 3 */
+    volatile uint32_t CCR3;         /* Channel 3 configuration        */
+    volatile uint32_t CNDTR3;       /* Channel 3 number of data       */
+    volatile uint32_t CPAR3;        /* Channel 3 peripheral address   */
+    volatile uint32_t CMAR3;        /* Channel 3 memory address       */
+    /* 0x40 */ volatile uint32_t RESERVED3;    /* Reserved                      */
 
-typedef struct
-{
-    volatile uint32_t ISR;        /* 0x000 */
-    volatile uint32_t IFCR;       /* 0x004 */
+    /* Channel 4 */
+    volatile uint32_t CCR4;         /* Channel 4 configuration        */
+    volatile uint32_t CNDTR4;       /* Channel 4 number of data       */
+    volatile uint32_t CPAR4;        /* Channel 4 peripheral address   */
+    volatile uint32_t CMAR4;        /* Channel 4 memory address       */
+    volatile uint32_t RESERVED4;    /* Reserved                      */
 
-    DMA_Channel_RegDef_t Channel1; /* 0x008 - 0x01B */
+    /* Channel 5 */
+    volatile uint32_t CCR5;         /* Channel 5 configuration        */
+    volatile uint32_t CNDTR5;       /* Channel 5 number of data       */
+    volatile uint32_t CPAR5;        /* Channel 5 peripheral address   */
+    volatile uint32_t CMAR5;        /* Channel 5 memory address       */
 
-    DMA_Channel_RegDef_t Channel2; /* 0x01C - 0x02F */
-
-    DMA_Channel_RegDef_t Channel3; /* 0x030 - 0x043 */
-
-    DMA_Channel_RegDef_t Channel4; /* 0x044 - 0x057 */
-
-    DMA_Channel_RegDef_t Channel5; /* 0x058 - 0x06B */
-
-    volatile uint32_t RESERVED1[15]; /* 0x06C - 0x0A7 */
-
-    volatile uint32_t CSELR;         /* 0x0A8 */
-
+    volatile uint32_t RESERVED5[15];  /* Padding to 0xA8 */
+    volatile uint32_t CSELR;        /* Channel selection register     */
 } DMA_RegDef_t;
+
 
 
 /*----------------------------- FLASH ---------------------------------------*/
