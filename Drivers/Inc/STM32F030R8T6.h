@@ -163,5 +163,32 @@ typedef struct
 } I2Cx_RegDef_t;
 
 
+/*----------------------------- ADC -----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t ISR;         /* 0x00 */
+    volatile uint32_t IER;         /* 0x04 */
+    volatile uint32_t CR;          /* 0x08 */
+    volatile uint32_t CFGR1;       /* 0x0C */
+    volatile uint32_t CFGR2;       /* 0x10 */
+    volatile uint32_t SMPR;        /* 0x14 */
+
+    volatile uint32_t RESERVED1[2];/* 0x18 - 0x1C */
+
+    volatile uint32_t TR;          /* 0x20 */
+
+    volatile uint32_t RESERVED2;   /* 0x24 */
+
+    volatile uint32_t CHSELR;      /* 0x28 */
+
+    volatile uint32_t RESERVED3[5];/* 0x2C - 0x3C */
+
+    volatile uint32_t DR;          /* 0x40 */
+    volatile uint32_t RESERVED4[177];/* 0x44 - 0x304 */
+     volatile uint32_t CCR;         /* 0x308  */          /*Be careful ADC_CCR is a Common register to all ADCs*/
+} ADCx_RegDef_t;
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
