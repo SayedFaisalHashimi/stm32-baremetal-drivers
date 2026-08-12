@@ -533,5 +533,60 @@ typedef struct
 
 
 
+
+/*============================================================================*/
+/*                           PERIPHERAL INSTANCES                             */
+/*============================================================================*/
+
+/* GPIOs */
+#define GPIOA               ((GPIOx_RegDef_t *) GPIOA_BASE)
+#define GPIOB               ((GPIOx_RegDef_t *) GPIOB_BASE)
+#define GPIOC               ((GPIOx_RegDef_t *) GPIOC_BASE)
+#define GPIOD               ((GPIOx_RegDef_t *) GPIOD_BASE)
+#define GPIOF               ((GPIOx_RegDef_t *) GPIOF_BASE)
+
+/* RCC */
+#define RCC                 ((RCCx_RegDef_t *) RCC_BASE)
+
+/* DMA */
+#define DMA1                ((DMA_RegDef_t *) DMA1_BASE)
+
+/* FLASH Interface */
+#define FLASH               ((FLASH_RegDef_t *) FLASH_INTERFACE_BASE)
+
+/* USARTs (STM32F030x8 has USART1 & USART2) */
+#define USART1              ((USARTx_RegDef_t *) USART1_BASE)
+#define USART2              ((USARTx_RegDef_t *) USART2_BASE)
+
+/* SPIs */
+#define SPI1                ((SPIx_RegDef_t *) SPI1_BASE)
+#define SPI2                ((SPIx_RegDef_t *) SPI2_BASE)
+
+/* I2C (STM32F030x8 has I2C1) */
+#define I2C1                ((I2Cx_RegDef_t *) I2C1_BASE)
+
+/* Timers */
+#define TIM1                ((TIM1_RegDef_t *) TIM1_BASE)
+#define TIM3                ((TIM3_RegDef_t *) TIM3_BASE)
+#define TIM6                ((TIM6_RegDef_t *) TIM6_BASE)
+#define TIM14               ((TIM14_RegDef_t *) TIM14_BASE)
+#define TIM15               ((TIM15_RegDef_t *) TIM15_BASE)
+#define TIM16               ((TIM16_RegDef_t *) TIM16_BASE)
+#define TIM17               ((TIM16_RegDef_t *) TIM17_BASE) /* Reuses TIM16 layout */
+
+/* ADC */
+#define ADC1                ((ADCx_RegDef_t *) ADC_BASE)
+
+/* System & Interrupts */
+#define SYSCFG              ((SYSCFG_RegDef_t *) SYSCFG_BASE)
+#define EXTI                ((EXTI_RegDef_t *) EXTI_BASE)
+#define PWR                 ((PWR_RegDef_t *) PWR_BASE)
+#define IWDG                ((IWDG_RegDef_t *) IWDG_BASE)
+#define WWDG                ((WWDG_RegDef_t *) WWDG_BASE)
+#define RTC                 ((RTC_RegDef_t *) RTC_BASE)
+#define DBGMCU              ((DBGMCU_RegDef_t *) DBGMCU_BASE)
+
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 
