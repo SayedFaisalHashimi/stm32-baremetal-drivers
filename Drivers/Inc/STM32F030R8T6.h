@@ -255,5 +255,16 @@ typedef struct
 } FLASH_RegDef_t;
 
 
+/*----------------------------- SYSCFG --------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CFGR1;       /* 0x00 - SYSCFG configuration register 1 */
+    volatile uint32_t RESERVED;    /* 0x04 - Reserved                         */
+    volatile uint32_t EXTICR[4];  /* 0x08 - 0x14 - External interrupt config  */
+    volatile uint32_t CFGR2;       /* 0x18 - SYSCFG configuration register 2 */
+} SYSCFG_RegDef_t;
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
