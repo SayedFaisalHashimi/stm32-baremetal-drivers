@@ -143,5 +143,25 @@ typedef struct
     volatile uint32_t TXCRCR;      /* 0x18 */
 } SPIx_RegDef_t;
 
+
+
+/*----------------------------- I2C -----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CR1;         /* 0x00 */
+    volatile uint32_t CR2;         /* 0x04 */
+    volatile uint32_t OAR1;        /* 0x08 */
+    volatile uint32_t OAR2;        /* 0x0C */
+    volatile uint32_t TIMINGR;     /* 0x10 */
+    volatile uint32_t TIMEOUTR;    /* 0x14 */
+    volatile uint32_t ISR;         /* 0x18 */
+    volatile uint32_t ICR;         /* 0x1C */
+    volatile uint32_t PECR;        /* 0x20 */
+    volatile uint32_t RXDR;        /* 0x24 */
+    volatile uint32_t TXDR;        /* 0x28 */
+} I2Cx_RegDef_t;
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
