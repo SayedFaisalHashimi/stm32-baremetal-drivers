@@ -2,6 +2,7 @@
 #define INC_STM32F030R8T6_H_
 
 #include<stdint.h>
+#include <stddef.h>
 // MEMORY ADDRESSES
 #define   FLASH_BASE_ADDR                    0x08000000UL
 #define   SRAM_BASE_ADDR                     0x20000000UL
@@ -56,6 +57,15 @@
 #define   RCC_BASE                         (AHB1PERIPHERAL_BASE_ADDR + 0x00001000UL)
 #define   FLASH_INTERFACE_BASE             (AHB1PERIPHERAL_BASE_ADDR + 0x00002000UL)
 #define   CRC_BASE                         (AHB1PERIPHERAL_BASE_ADDR + 0x00003000UL)
+
+// DMA CHANNELS ADRESSES
+#define DMA1_BASE              0x40020000UL
+
+#define DMA1_Channel1_BASE     (DMA1_BASE + 0x08UL)
+#define DMA1_Channel2_BASE     (DMA1_BASE + 0x1CUL)
+#define DMA1_Channel3_BASE     (DMA1_BASE + 0x30UL)
+#define DMA1_Channel4_BASE     (DMA1_BASE + 0x44UL)
+#define DMA1_Channel5_BASE     (DMA1_BASE + 0x58UL)
 
 
 /******************************************************************************/
@@ -188,6 +198,48 @@ typedef struct
     volatile uint32_t RESERVED4[177];/* 0x44 - 0x304 */
      volatile uint32_t CCR;         /* 0x308  */          /*Be careful ADC_CCR is a Common register to all ADCs*/
 } ADCx_RegDef_t;
+
+
+
+/*===========================================================================*/
+/*                              DMA CHANNEL                                  */
+/*===========================================================================*/
+
+typedef struct
+{
+    volatile uint32_t CCR;       /* 0x00 - DMA channel configuration register */
+    volatile uint32_t CNDTR;     /* 0x04 - Number of data to transfer         */
+    volatile uint32_t CPAR;      /* 0x08 - Peripheral address                */
+    volatile uint32_t CMAR;      /* 0x0C - Memory address                    */
+    volatile uint32_t RESERVED;  /* 0x10 - Reserved                          */
+
+} DMA_Channel_RegDef_t;
+
+
+
+typedef struct
+{
+    volatile uint32_t ISR;        /* 0x000 */
+    volatile uint32_t IFCR;       /* 0x004 */
+
+    DMA_Channel_RegDef_t Channel1; /* 0x008 - 0x01B */
+
+    DMA_Channel_RegDef_t Channel2; /* 0x01C - 0x02F */
+
+    DMA_Channel_RegDef_t Channel3; /* 0x030 - 0x043 */
+
+    DMA_Channel_RegDef_t Channel4; /* 0x044 - 0x057 */
+
+    DMA_Channel_RegDef_t Channel5; /* 0x058 - 0x06B */
+
+    volatile uint32_t RESERVED1[15]; /* 0x06C - 0x0A7 */
+
+    volatile uint32_t CSELR;         /* 0x0A8 */
+
+} DMA_RegDef_t;
+
+
+
 
 
 #endif /* INC_STM32F030R8T6_H_ */
