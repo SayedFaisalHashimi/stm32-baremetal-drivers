@@ -463,5 +463,49 @@ typedef struct
 } TIM16_RegDef_t;
 
 
+
+/*----------------------------- PWR -----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CR;          /* 0x00 */
+    volatile uint32_t CSR;         /* 0x04 */
+} PWR_RegDef_t;
+
+
+/*----------------------------- IWDG ----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t KR;          /* 0x00 */
+    volatile uint32_t PR;          /* 0x04 */
+    volatile uint32_t RLR;         /* 0x08 */
+    volatile uint32_t SR;          /* 0x0C */
+    volatile uint32_t WINR;        /* 0x10 */
+} IWDG_RegDef_t;
+
+
+/*----------------------------- WWDG ----------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CR;          /* 0x00 */
+    volatile uint32_t CFR;         /* 0x04 */
+    volatile uint32_t SR;          /* 0x08 */
+} WWDG_RegDef_t;
+
+
+/*----------------------------- DBGMCU --------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t IDCODE;      /* 0x00 */
+    volatile uint32_t CR;          /* 0x04 */
+    volatile uint32_t APB1FZ;      /* 0x08 */
+    volatile uint32_t APB2FZ;      /* 0x0C */
+} DBGMCU_RegDef_t;
+
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
