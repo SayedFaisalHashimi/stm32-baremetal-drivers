@@ -532,6 +532,18 @@ typedef struct
 } EXTI_RegDef_t;
 
 
+/*.............................. CRC........................................ */
+typedef struct
+{
+    volatile uint32_t DR;        /* 0x00 */
+    volatile uint32_t IDR;       /* 0x04 */
+    volatile uint32_t CR;        /* 0x08 */
+    volatile uint32_t RESERVED;  /* 0x0C */
+    volatile uint32_t INIT;      /* 0x10 */
+    volatile uint32_t POL;       /* 0x14 */
+
+} CRC_RegDef_t;
+
 
 
 /*============================================================================*/
@@ -547,6 +559,9 @@ typedef struct
 
 /* RCC */
 #define RCC                 ((RCCx_RegDef_t *) RCC_BASE)
+
+/* CRC */
+#define CRC                 ((CRC_RegDef_t *) CRC_BASE)
 
 /* DMA */
 #define DMA1                ((DMA_RegDef_t *) DMA1_BASE)
