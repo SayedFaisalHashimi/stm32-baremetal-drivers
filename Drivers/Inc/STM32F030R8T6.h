@@ -109,4 +109,23 @@ typedef struct
 } RCCx_RegDef_t;
 
 
+
+/*----------------------------- USART ---------------------------------------*/
+
+typedef struct
+{
+    volatile uint32_t CR1;         /* 0x00 */
+    volatile uint32_t CR2;         /* 0x04 */
+    volatile uint32_t CR3;         /* 0x08 */
+    volatile uint32_t BRR;         /* 0x0C */
+    volatile uint32_t RESERVED1;   /* 0x10 */
+    volatile uint32_t RTOR;        /* 0x14 */
+    volatile uint32_t RQR;         /* 0x18 */
+    volatile uint32_t ISR;         /* 0x1C */
+    volatile uint32_t ICR;         /* 0x20 */
+    volatile uint32_t RDR;         /* 0x24 */
+    volatile uint32_t TDR;         /* 0x28 */
+
+} USARTx_RegDef_t;
+
 #endif /* INC_STM32F030R8T6_H_ */
