@@ -376,5 +376,30 @@ typedef struct
 
 } TIM6_RegDef_t;
 
+
+
+//TIM14
+
+typedef struct
+{
+    volatile uint32_t CR1;          /* 0x00 */
+    volatile uint32_t RESERVED1[2]; /* 0x04 - 0x08 */
+    volatile uint32_t DIER;         /* 0x0C */
+    volatile uint32_t SR;           /* 0x10 */
+    volatile uint32_t EGR;          /* 0x14 */
+    volatile uint32_t CCMR1;        /* 0x18 */
+    volatile uint32_t RESERVED2;    /* 0x1C */
+    volatile uint32_t CCER;         /* 0x20 */
+    volatile uint32_t CNT;          /* 0x24 */
+    volatile uint32_t PSC;          /* 0x28 */
+    volatile uint32_t ARR;          /* 0x2C */
+    volatile uint32_t RESERVED3;    /* 0x30 */
+    volatile uint32_t CCR1;         /* 0x34 */
+    volatile uint32_t RESERVED4[6]; /* 0x38 - 0x4C */
+    volatile uint32_t OR;           /* 0x50 */
+} TIM14_RegDef_t;
+
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 #endif /* INC_STM32F030R8T6_H_ */
