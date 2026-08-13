@@ -639,6 +639,35 @@ typedef struct
 #define SRAM_CLK_DIS()        (RCC->AHBENR  &= ~(1UL << 2))
 
 
+/*----------------------------- APB2 Peripherals ----------------------------*/
+#define SYSCFG_CLK_EN()       (RCC->APB2ENR |= (1UL << 0))
+#define SYSCFG_CLK_DIS()      (RCC->APB2ENR &= ~(1UL << 0))
+
+#define ADC1_CLK_EN()         (RCC->APB2ENR |= (1UL << 9))
+#define ADC1_CLK_DIS()        (RCC->APB2ENR &= ~(1UL << 9))
+
+#define TIM1_CLK_EN()         (RCC->APB2ENR |= (1UL << 11))
+#define TIM1_CLK_DIS()        (RCC->APB2ENR &= ~(1UL << 11))
+
+#define SPI1_CLK_EN()         (RCC->APB2ENR |= (1UL << 12))
+#define SPI1_CLK_DIS()        (RCC->APB2ENR &= ~(1UL << 12))
+
+#define USART1_CLK_EN()       (RCC->APB2ENR |= (1UL << 14))
+#define USART1_CLK_DIS()      (RCC->APB2ENR &= ~(1UL << 14))
+
+#define TIM15_CLK_EN()        (RCC->APB2ENR |= (1UL << 16))
+#define TIM15_CLK_DIS()       (RCC->APB2ENR &= ~(1UL << 16))
+
+#define TIM16_CLK_EN()        (RCC->APB2ENR |= (1UL << 17))
+#define TIM16_CLK_DIS()       (RCC->APB2ENR &= ~(1UL << 17))
+
+#define TIM17_CLK_EN()        (RCC->APB2ENR |= (1UL << 18))
+#define TIM17_CLK_DIS()       (RCC->APB2ENR &= ~(1UL << 18))
+
+#define DBGMCU_CLK_EN()       (RCC->APB2ENR |= (1UL << 22))
+#define DBGMCU_CLK_DIS()      (RCC->APB2ENR &= ~(1UL << 22))
+
+
 
 #endif /* INC_STM32F030R8T6_H_ */
 
