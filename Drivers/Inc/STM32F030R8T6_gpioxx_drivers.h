@@ -107,4 +107,24 @@ typedef struct
 #define GPIO_AF7            7
 
 
+
+/******************************************************************************************
+ *								APIs supported by this driver
+ ******************************************************************************************/
+
+/* Peripheral Clock setup */
+void GPIO_PeriClockControl(GPIOx_RegDef_t *pGPIOx, uint8_t EnorDi);
+
+/* Init and De-init */
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
+void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx);
+
+/* Data read and write */
+uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
+uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx);
+void GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t Value);
+void GPIO_ToggleOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
+
+
 #endif /* INC_STM32F030R8T6_GPIOXX_DRIVERS_H_ */
