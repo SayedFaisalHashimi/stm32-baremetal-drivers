@@ -603,13 +603,26 @@ typedef struct
 
 
 
-// CLOCKS FOR GPIOx
+/*============================================================================*/
+/*                        CLOCK ENABLE / DISABLE MACROS                       */
+/*============================================================================*/
 
-#define GPIOA_CLK_EN         RCC->AHBENR |= (1<<17) ;
-#define GPIOB_CLK_EN         RCC->AHBENR |= (1<<18) ;
-#define GPIOC_CLK_EN         RCC->AHBENR |= (1<<19) ;
-#define GPIOD_CLK_EN         RCC->AHBENR |= (1<<20) ;
-#define GPIOF_CLK_EN         RCC->AHBENR |= (1<<22) ;
+/*----------------------------- AHB Peripherals -----------------------------*/
+/* GPIO Ports */
+#define GPIOA_CLK_EN()        (RCC->AHBENR  |= (1UL << 17))
+#define GPIOA_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 17))
+
+#define GPIOB_CLK_EN()        (RCC->AHBENR  |= (1UL << 18))
+#define GPIOB_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 18))
+
+#define GPIOC_CLK_EN()        (RCC->AHBENR  |= (1UL << 19))
+#define GPIOC_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 19))
+
+#define GPIOD_CLK_EN()        (RCC->AHBENR  |= (1UL << 20))
+#define GPIOD_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 20))
+
+#define GPIOF_CLK_EN()        (RCC->AHBENR  |= (1UL << 22))
+#define GPIOF_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 22))
 
 
 
