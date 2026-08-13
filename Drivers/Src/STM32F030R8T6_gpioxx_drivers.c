@@ -134,5 +134,40 @@ uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber)
 	return value;
 }
 
+/**
+ * @fn      GPIO_ReadFromInputPort
+ * @brief   Reads the entire 16-bit input port
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ * @return  16-bit port value
+ */
+uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx)
+{
+	uint16_t value;
+	value = (uint16_t)pGPIOx->IDR;
+	return value;
+}
+
+/**
+ * @fn      GPIO_WriteToOutputPin
+ * @brief   Writes a value to a specific output pin
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ * @param   PinNumber : Pin number to write to
+ * @param   Value : GPIO_PIN_SET or GPIO_PIN_RESET
+ */
+void GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value)
+{
+	if(Value == GPIO_PIN_SET)
+	{
+		// Set the corresponding bit in the Bit Set/Reset Register (BSRR)
+		pGPIOx->BSRR = (1 << PinNumber);
+	}
+	else
+	{
+		// Set the corresponding bit in the Bit Reset Register (BRR)
+		pGPIOx->BRR = (1 << PinNumber);
+	}
+}
 
 
