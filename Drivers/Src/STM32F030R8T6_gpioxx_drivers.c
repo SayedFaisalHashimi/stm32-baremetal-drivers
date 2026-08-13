@@ -80,3 +80,42 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4 * temp2));
 	}
 }
+
+
+
+/**
+ * @fn      GPIO_DeInit
+ * @brief   De-initializes the GPIO port back to reset state
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ */
+void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx)
+{
+	if(pGPIOx == GPIOA)
+	{
+		RCC->AHBRSTR |= (1 << 17);
+		RCC->AHBRSTR &= ~(1 << 17);
+	}
+	else if(pGPIOx == GPIOB)
+	{
+		RCC->AHBRSTR |= (1 << 18);
+		RCC->AHBRSTR &= ~(1 << 18);
+	}
+	else if(pGPIOx == GPIOC)
+	{
+		RCC->AHBRSTR |= (1 << 19);
+		RCC->AHBRSTR &= ~(1 << 19);
+	}
+	else if(pGPIOx == GPIOD)
+	{
+		RCC->AHBRSTR |= (1 << 20);
+		RCC->AHBRSTR &= ~(1 << 20);
+	}
+	else if(pGPIOx == GPIOF)
+	{
+		RCC->AHBRSTR |= (1 << 22);
+		RCC->AHBRSTR &= ~(1 << 22);
+	}
+}
+
+
