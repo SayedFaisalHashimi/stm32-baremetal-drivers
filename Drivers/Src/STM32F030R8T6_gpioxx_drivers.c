@@ -119,3 +119,20 @@ void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx)
 }
 
 
+/**
+ * @fn      GPIO_ReadFromInputPin
+ * @brief   Reads the state of a specific pin
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ * @param   PinNumber : Pin number to read
+ * @return  0 or 1 (State of the pin)
+ */
+uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber)
+{
+	uint8_t value;
+	value = (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x00000001);
+	return value;
+}
+
+
+
