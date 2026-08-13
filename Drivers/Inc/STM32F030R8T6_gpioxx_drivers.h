@@ -61,7 +61,50 @@ typedef struct
 #define GPIO_PIN_NO_14 		14
 #define GPIO_PIN_NO_15 		15
 
+/*
+ * @GPIO_PIN_MODES
+ * GPIO pin possible modes
+ */
+#define GPIO_MODE_IN 		0
+#define GPIO_MODE_OUT 		1
+#define GPIO_MODE_ALTFN 	2
+#define GPIO_MODE_ANALOG 	3
 
+/*
+ * @GPIO_PIN_OP_TYPES
+ * GPIO pin possible output types
+ */
+#define GPIO_OP_TYPE_PP   	0
+#define GPIO_OP_TYPE_OD   	1
+
+/*
+ * @GPIO_PIN_SPEED
+ * GPIO pin possible output speeds
+ */
+#define GPIO_SPEED_LOW			0
+#define GPIO_SPEED_MEDIUM		1
+#define GPIO_SPEED_HIGH			3
+
+/*
+ * @GPIO_PIN_PUPD
+ * GPIO pin pull-up/pull-down configuration macros
+ */
+#define GPIO_NO_PUPD   		0
+#define GPIO_PIN_PU			1
+#define GPIO_PIN_PD			2
+
+/*
+ * @GPIO_PIN_ALT_FUN
+ * GPIO alternate function modes
+ */
+#define GPIO_AF0            0
+#define GPIO_AF1            1
+#define GPIO_AF2            2
+#define GPIO_AF3            3
+#define GPIO_AF4            4
+#define GPIO_AF5            5
+#define GPIO_AF6            6
+#define GPIO_AF7            7
 
 
 #endif /* INC_STM32F030R8T6_GPIOXX_DRIVERS_H_ */
