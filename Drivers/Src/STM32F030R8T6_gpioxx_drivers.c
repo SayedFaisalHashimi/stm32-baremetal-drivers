@@ -171,3 +171,29 @@ void GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Va
 }
 
 
+/**
+ * @fn      GPIO_WriteToOutputPort
+ * @brief   Writes a 16-bit value to the entire output port
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ * @param   Value : 16-bit value to write
+ */
+void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t Value)
+{
+	pGPIOx->ODR = Value;
+}
+
+/**
+ * @fn      GPIO_ToggleOutputPin
+ * @brief   Toggles the state of a specific output pin
+ *
+ * @param   pGPIOx : Base address of the GPIO port
+ * @param   PinNumber : Pin number to toggle
+ */
+void GPIO_ToggleOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber)
+{
+	pGPIOx->ODR ^= (1 << PinNumber);
+}
+
+
+
