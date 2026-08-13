@@ -625,6 +625,20 @@ typedef struct
 #define GPIOF_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 22))
 
 
+/* Other AHB Peripherals */
+#define DMA1_CLK_EN()         (RCC->AHBENR  |= (1UL << 0))
+#define DMA1_CLK_DIS()        (RCC->AHBENR  &= ~(1UL << 0))
+
+#define CRC_CLK_EN()          (RCC->AHBENR  |= (1UL << 6))
+#define CRC_CLK_DIS()         (RCC->AHBENR  &= ~(1UL << 6))
+
+#define FLITF_CLK_EN()        (RCC->AHBENR  |= (1UL << 4))
+#define FLITF_CLK_DIS()       (RCC->AHBENR  &= ~(1UL << 4))
+
+#define SRAM_CLK_EN()         (RCC->AHBENR  |= (1UL << 2))
+#define SRAM_CLK_DIS()        (RCC->AHBENR  &= ~(1UL << 2))
+
+
 
 #endif /* INC_STM32F030R8T6_H_ */
 
