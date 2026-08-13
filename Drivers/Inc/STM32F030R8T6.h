@@ -669,5 +669,31 @@ typedef struct
 
 
 
+/*----------------------------- APB1 Peripherals ----------------------------*/
+#define TIM3_CLK_EN()         (RCC->APB1ENR |= (1UL << 1))
+#define TIM3_CLK_DIS()        (RCC->APB1ENR &= ~(1UL << 1))
+
+#define TIM6_CLK_EN()         (RCC->APB1ENR |= (1UL << 4))
+#define TIM6_CLK_DIS()        (RCC->APB1ENR &= ~(1UL << 4))
+
+#define TIM14_CLK_EN()        (RCC->APB1ENR |= (1UL << 8))
+#define TIM14_CLK_DIS()       (RCC->APB1ENR &= ~(1UL << 8))
+
+#define WWDG_CLK_EN()         (RCC->APB1ENR |= (1UL << 11))
+#define WWDG_CLK_DIS()        (RCC->APB1ENR &= ~(1UL << 11))
+
+#define SPI2_CLK_EN()         (RCC->APB1ENR |= (1UL << 14))
+#define SPI2_CLK_DIS()        (RCC->APB1ENR &= ~(1UL << 14))
+
+#define USART2_CLK_EN()       (RCC->APB1ENR |= (1UL << 17))
+#define USART2_CLK_DIS()      (RCC->APB1ENR &= ~(1UL << 17))
+
+#define I2C1_CLK_EN()         (RCC->APB1ENR |= (1UL << 21))
+#define I2C1_CLK_DIS()        (RCC->APB1ENR &= ~(1UL << 21))
+
+#define PWR_CLK_EN()          (RCC->APB1ENR |= (1UL << 28))
+#define PWR_CLK_DIS()         (RCC->APB1ENR &= ~(1UL << 28))
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 
