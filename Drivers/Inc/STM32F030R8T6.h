@@ -710,5 +710,32 @@ typedef struct
 #define PWR_CLK_DIS()         (RCC->APB1ENR &= ~(1UL << 28))
 
 
+
+/*
+ * Macro to convert GPIO Base Address to an EXTI Port Code
+ * (Used for setting the SYSCFG EXTICR register)
+ */
+#define GPIO_BASEADDR_TO_CODE(x)    ( (x == GPIOA) ? 0 :\
+                                      (x == GPIOB) ? 1 :\
+                                      (x == GPIOC) ? 2 :\
+                                      (x == GPIOD) ? 3 :\
+                                      (x == GPIOF) ? 5 : 0 )
+
+/*
+ * EXTI IRQ Numbers for STM32F030x8 (Processor Side)
+ */
+#define IRQNO_EXTI0_1               5   // EXTI Line 0 and 1
+#define IRQNO_EXTI2_3               6   // EXTI Line 2 and 3
+#define IRQNO_EXTI4_15              7   // EXTI Line 4 to 15
+
+
+/*
+ * Alias to match the driver file's clock enable call
+ */
+#define SYSCFG_PCLK_EN()            SYSCFG_CLK_EN()
+
+/
+
+
 #endif /* INC_STM32F030R8T6_H_ */
 
