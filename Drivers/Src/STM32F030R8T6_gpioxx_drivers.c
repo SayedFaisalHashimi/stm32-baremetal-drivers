@@ -37,48 +37,96 @@ void GPIO_PeriClockControl(GPIOx_RegDef_t *pGPIOx, uint8_t EnorDi)
 
 
 /**
- * @fn      GPIO_Init
- * @brief   Initializes the given GPIO pin according to the specified parameters
+ * @fn       GPIO_Init
+ * @brief    Initializes the given GPIO pin according to the specified parameters
  *
- * @param   pGPIOHandle : Pointer to the GPIO handle structure
+ * @param    pGPIOHandle : Pointer to the GPIO handle structure
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
-	uint32_t temp = 0;
+    uint32_t temp = 0;
     uint8_t pinNumber = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
 
-	// Enable clock for the port just in case it wasn't done prior
-	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
+    // Enable clock for the port just in case it wasn't done prior
+    GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
 
-	// 1. Configure the mode of the GPIO pin
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pinNumber));
-	pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pinNumber)); // Clearing
-	pGPIOHandle->pGPIOx->MODER |= temp; // Setting
+    // =========================================================================
+    // STEP 1: Configure the Mode (Normal Mode vs. Interrupt Mode)
+    // =========================================================================
+    if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
+    {
+        // Non-interrupt mode configuration (Input, Output, AltFn, Analog)
+        temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pinNumber));
+        pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pinNumber)); // clearing
+        pGPIOHandle->pGPIOx->MODER |= temp; // setting
+    }
+    else
+    {
+        // Interrupt mode: Configure base pin mode strictly as Input mode (00)
+        pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pinNumber));
 
-	// 2. Configure the speed
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pinNumber));
-	pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << (2 * pinNumber));
-	pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+        // =====================================================================
+        // STEP 2: Configure the Edge Trigger (Falling, Rising, or Both)
+        // =====================================================================
+        if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT)
+        {
+            // Configure Falling Trigger Register (FTSR)
+            EXTI->FTSR |= (1 << pinNumber);
+            EXTI->RTSR &= ~(1 << pinNumber);
+        }
+        else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
+        {
+            // Configure Rising Trigger Register (RTSR)
+            EXTI->RTSR |= (1 << pinNumber);
+            EXTI->FTSR &= ~(1 << pinNumber);
+        }
+        else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT)
+        {
+            // Configure both FTSR and RTSR
+            EXTI->FTSR |= (1 << pinNumber);
+            EXTI->RTSR |= (1 << pinNumber);
+        }
 
-	// 3. Configure the pull-up/pull-down settings
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pinNumber));
-	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << (2 * pinNumber));
-	pGPIOHandle->pGPIOx->PUPDR |= temp;
+        // =====================================================================
+        // STEP 3: Enable Interrupt Delivery on Peripheral Side
+        // =====================================================================
+        // 3a. Select the GPIO Port in SYSCFG EXTI Control Register (EXTICR)
+        uint8_t temp1 = pinNumber / 4;
+        uint8_t temp2 = pinNumber % 4;
+        uint8_t portcode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
 
-	// 4. Configure the output type
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << pinNumber);
-	pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << pinNumber);
-	pGPIOHandle->pGPIOx->OTYPER |= temp;
+        SYSCFG_PCLK_EN(); // Enable clock for SYSCFG
+        SYSCFG->EXTICR[temp1] &= ~(0xF << (temp2 * 4)); // Clear
+        SYSCFG->EXTICR[temp1] |= (portcode << (temp2 * 4)); // Set port
 
-	// 5. Configure alternate functionality if applicable
-	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
-	{
-		uint8_t temp1 = pinNumber / 8; // determines AFR[0] (low) or AFR[1] (high)
-		uint8_t temp2 = pinNumber % 8; // determines bit position within AFR
+        // 3b. Unmask the interrupt in EXTI Interrupt Mask Register (IMR)
+        EXTI->IMR |= (1 << pinNumber);
+    }
 
-		pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2));
-		pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4 * temp2));
-	}
+    // 2. Configure the speed
+    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pinNumber));
+    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << (2 * pinNumber));
+    pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+
+    // 3. Configure the pull-up/pull-down settings
+    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pinNumber));
+    pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << (2 * pinNumber));
+    pGPIOHandle->pGPIOx->PUPDR |= temp;
+
+    // 4. Configure the output type
+    temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << pinNumber);
+    pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << pinNumber);
+    pGPIOHandle->pGPIOx->OTYPER |= temp;
+
+    // 5. Configure alternate functionality if applicable
+    if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
+    {
+        uint8_t temp1 = pinNumber / 8; // determines AFR[0] (low) or AFR[1] (high)
+        uint8_t temp2 = pinNumber % 8; // determines bit position within AFR
+
+        pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2));
+        pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4 * temp2));
+    }
 }
 
 
