@@ -16,8 +16,18 @@
  ******************************************************************************
  */
 #include "STM32F030R8T6.h"
+#include "stm32f030r8t6_gpio_driver.h"
 #include <stdint.h>
 
+// ISR for EXTI Line 0 and 1 (Must be outside of main!)
+void EXTI0_1_IRQHandler(void)
+{
+    // Clear the pending bit for the pin (e.g., Pin 0)
+    GPIO_IRQHandling(GPIO_PIN_NO_0);
+
+    // Your User Application Code Here
+    // e.g., Toggle LED, set a status flag, etc.
+}
 
 int main(void)
 {
