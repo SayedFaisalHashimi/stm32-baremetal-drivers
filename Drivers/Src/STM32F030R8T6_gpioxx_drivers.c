@@ -290,3 +290,13 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 }
 
 
+// Driver API to clear pending bit in EXTI peripheral
+void GPIO_IRQHandling(uint8_t PinNumber)
+{
+    // Clear EXTI PR register bit by writing 1 to it
+    if(EXTI->PR & (1 << PinNumber))
+    {
+        EXTI->PR |= (1 << PinNumber);
+    }
+}
+
