@@ -70,6 +70,15 @@ typedef struct
 #define GPIO_MODE_ALTFN 	2
 #define GPIO_MODE_ANALOG 	3
 
+
+/* Interrupt modes */
+#define GPIO_MODE_IT_FT     4   // Interrupt Falling Trigger
+#define GPIO_MODE_IT_RT     5   // Interrupt Rising Trigger
+#define GPIO_MODE_IT_RFT    6   // Interrupt Rising/Falling Trigger
+/* */
+
+
+
 /*
  * @GPIO_PIN_OP_TYPES
  * GPIO pin possible output types
