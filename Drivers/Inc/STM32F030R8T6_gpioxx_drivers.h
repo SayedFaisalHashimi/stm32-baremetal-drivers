@@ -136,4 +136,13 @@ void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t Value);
 void GPIO_ToggleOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 
+/*
+ * IRQ Configuration and ISR handling
+ */
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
+void GPIO_IRQHandling(uint8_t PinNumber);
+/
+
+
 #endif /* INC_STM32F030R8T6_GPIOXX_DRIVERS_H_ */
