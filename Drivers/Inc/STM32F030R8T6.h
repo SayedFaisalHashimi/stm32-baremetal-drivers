@@ -169,6 +169,8 @@ typedef struct
     volatile uint32_t CRCPR;       /* 0x10 */
     volatile uint32_t RXCRCR;      /* 0x14 */
     volatile uint32_t TXCRCR;      /* 0x18 */
+    volatile uint32_t I2SCFGR;     /*!< SPI_I2S Configuration Register,  Address offset: 0x1C */
+    volatile uint32_t I2SPR;       /*!< SPI_I2S Prescaler Register,      Address offset: 0x20 */
 } SPIx_RegDef_t;
 
 
@@ -734,7 +736,6 @@ typedef struct
  */
 #define SYSCFG_PCLK_EN()            SYSCFG_CLK_EN()
 
-/
 
 
 #endif /* INC_STM32F030R8T6_H_ */
