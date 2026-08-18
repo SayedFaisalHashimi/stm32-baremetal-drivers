@@ -108,3 +108,28 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
         }
     }
 }
+
+
+void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
+{
+    while (Len > 0)
+    {
+        // Wait until RXNE flag is set
+        while (SPI_GetFlagStatus(pSPIx, SPI_RXNE_FLAG) == FLAG_RESET);
+
+        if ((pSPIx->CR2 & (0xF << 8)) == (SPI_DS_16BIT << 8))
+        {
+            // 16-bit Data transfer
+            *((uint16_t*)pRxBuffer) = pSPIx->DR;
+            Len -= 2;
+            pRxBuffer += 2; // Advance pointer by 2 bytes for 16-bit frame
+        }
+        else
+        {
+            // 8-bit Data transfer
+            *pRxBuffer = *(volatile uint8_t*)&pSPIx->DR; // Direct uint8_t read pops 1 byte from F0 FIFO
+            Len--;
+            pRxBuffer++;
+        }
+    }
+}
