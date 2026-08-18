@@ -133,3 +133,17 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
         }
     }
 }
+
+
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi)
+{
+    if (EnOrDi == ENABLE)
+    {
+        pSPIx->CR1 |= (1 << 6); // Set SPE Bit
+    }
+    else
+    {
+        pSPIx->CR1 &= ~(1 << 6); // Clear SPE Bit
+    }
+}
+
