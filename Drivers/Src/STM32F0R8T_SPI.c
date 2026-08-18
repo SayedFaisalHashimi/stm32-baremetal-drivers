@@ -147,3 +147,17 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi)
     }
 }
 
+
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi)
+{
+    if (EnOrDi == ENABLE)
+    {
+        pSPIx->CR1 |= (1 << 8); // Set SSI Bit
+    }
+    else
+    {
+        pSPIx->CR1 &= ~(1 << 8); // Clear SSI Bit
+    }
+}
+
+
