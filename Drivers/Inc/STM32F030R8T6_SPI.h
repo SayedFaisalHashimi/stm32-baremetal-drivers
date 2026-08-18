@@ -74,4 +74,10 @@ typedef struct
 #define SPI_SSM_EN                  1
 
 
+/* SPI Status Flags */
+#define SPI_TXE_FLAG                (1 << 1)
+#define SPI_RXNE_FLAG               (1 << 0)
+#define SPI_BUSY_FLAG               (1 << 7)
+
+
 #endif /* INC_STM32F030R8T6_SPI_H_ */
