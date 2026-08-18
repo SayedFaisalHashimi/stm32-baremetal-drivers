@@ -57,4 +57,21 @@ typedef struct
 #define SPI_SCLK_SPEED_DIV256       7
 
 
+/* @SPI_DS (Data Size selection for STM32F0) */
+#define SPI_DS_8BIT                 7   // DS[3:0] = 0111 (8-bit)
+#define SPI_DS_16BIT                15  // DS[3:0] = 1111 (16-bit)
+
+/* @SPI_CPOL */
+#define SPI_CPOL_LOW                0
+#define SPI_CPOL_HIGH               1
+
+/* @SPI_CPHA */
+#define SPI_CPHA_LOW                0
+#define SPI_CPHA_HIGH               1
+
+/* @SPI_SSM */
+#define SPI_SSM_DI                  0
+#define SPI_SSM_EN                  1
+
+
 #endif /* INC_STM32F030R8T6_SPI_H_ */
