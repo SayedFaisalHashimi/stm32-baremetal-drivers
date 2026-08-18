@@ -36,4 +36,16 @@ typedef struct
 
 /* @SPI_DeviceMode */
 
+
+/* @SPI_DeviceMode */
+#define SPI_DEVICE_MODE_SLAVE       0
+#define SPI_DEVICE_MODE_MASTER      1
+
+/* @SPI_BusConfig */
+#define SPI_BUS_CONFIG_FD           1   // Full Duplex
+#define SPI_BUS_CONFIG_HD           2   // Half Duplex
+#define SPI_BUS_CONFIG_SIMPLEX_RXONLY 3 // Simplex RX Only
+
+
+
 #endif /* INC_STM32F030R8T6_SPI_H_ */
