@@ -80,4 +80,21 @@ typedef struct
 #define SPI_BUSY_FLAG               (1 << 7)
 
 
+/*
+ * Driver API Prototypes
+ */
+void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_Init(SPI_Handle_t *pSPIHandle);
+void SPI_DeInit(SPI_RegDef_t *pSPIx);
+
+void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len);
+void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
+
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
+
+
+
 #endif /* INC_STM32F030R8T6_SPI_H_ */
